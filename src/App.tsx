@@ -1,18 +1,18 @@
 import "./App.css";
-import { useGetUserQuery } from "./store/api/UserService";
-import { userSlice } from "./store/reducers/userReducer";
+import { useGetUserQuery } from "./store/api/post-api";
+import { counterSlice } from "./store/reducers/counter-reducer";
 import { useAppDispatch, useAppSelector } from "./store/store";
 
 function App() {
-  const { count } = useAppSelector((state) => state.userReducer);
-  const { increment, dicrement } = userSlice.actions;
+  const { count } = useAppSelector((state) => state.counterReducer);
+  const { increment, dicrement } = counterSlice.actions;
   const dispatch = useAppDispatch();
+  
   const { data: posts, error, isLoading } = useGetUserQuery(10);
 
   return (
     <>
       Posts:
-
       {isLoading ? (
         <div>Loading...</div>
       ) : (
