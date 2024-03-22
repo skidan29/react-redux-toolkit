@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./reducers/counter-reducer";
+import counterReducer from "./reducers/counter-clice";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { postApi } from "./api/post-api";
