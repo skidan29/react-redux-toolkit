@@ -3,6 +3,7 @@ import "./App.css";
 import { useGetUserQuery } from "./store/api/post-api";
 import { counterSlice } from "./store/reducers/counter-clice";
 import { useAppDispatch, useAppSelector } from "./store/store";
+import { Button, Input } from "./styled-component/style.style";
 
 interface MyForm{
   name:string;
@@ -31,14 +32,14 @@ function App() {
       <h1>{watch('name')}</h1>
       <form onSubmit={handleSubmit(submitForm, errorForm)}>
         <input type='text' {...register('name',{required:true})} aria-invalid={errors.name ? true : false}/>
-        
+
         <Controller 
         name="age"
         control={control}
-        render={({field})=> <input {...field }/>}
+        render={({field})=> <Input $invalidColor={'red'} {...field }/>}
         />
 
-        <button>Отправить</button>
+        <Button>Отправить</Button>
         <button type="button" onClick={()=>clearErrors('name')}>Clear Errors</button>
         <button type="button" onClick={()=>reset({name: '', age:0})}>Clear Form</button>
         <button type="button" onClick={()=>setValue('name', 'Васген')}>Set Name</button>
