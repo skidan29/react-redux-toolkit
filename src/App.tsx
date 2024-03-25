@@ -4,11 +4,12 @@ import {
   SubmitHandler,
   useForm,
 } from 'react-hook-form'
-import './App.css'
-import { useGetUserQuery } from './store/rtk-query/post-api'
+import { postApi, useGetPostsQuery } from './store/rtk-query/post-api'
 import { counterSlice } from './store/slices/counter-clice'
 import { useAppDispatch, useAppSelector } from './store/store'
 import { Button, Input } from './styled-component/style.style'
+import { ZodError, z } from 'zod'
+
 
 interface MyForm {
   name: string
@@ -20,7 +21,40 @@ function App() {
   const { increment, dicrement } = counterSlice.actions
   const dispatch = useAppDispatch()
 
-  const { data: posts, error, isLoading } = useGetUserQuery(10)
+  const { data: posts, error, isLoading } = useGetPostsQuery(10)
+
+  const schemaPost = z.object({
+    userId: z.number(),
+    id: z.number(),
+    title: z.string(),
+    body: z.string(),
+  })
+
+
+  const fn = async()=>{
+    try{
+    const res  = await dispatch(postApi.endpoints.getPosts.initiate(100))
+    const post = res?.data;
+    schemaPost.array().parseAsync(post);
+    }catch(e){
+
+      if(e instanceof ZodError){
+        throw e
+      }
+    }
+}
+fn()
+
+  
+
+  
+ 
+
+
+
+
+
+  
 
   const {
     register,
@@ -39,6 +73,7 @@ function App() {
 
   const submitForm: SubmitHandler<MyForm> = (data) => console.log(data)
   const errorForm: SubmitErrorHandler<MyForm> = (data) => console.log(data)
+
 
   return (
     <>

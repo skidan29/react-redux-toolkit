@@ -13,7 +13,7 @@ export const postApi = createApi({
     baseUrl: "https://jsonplaceholder.typicode.com",
   }),
   endpoints: (build) => ({
-    getUser: build.query<IPost[], number>({
+    getPosts: build.query<IPost[], number>({
       query: (limit: number = 5) => ({
         url: "/posts",
         params: {
@@ -21,7 +21,12 @@ export const postApi = createApi({
         },
       }),
     }),
+    getPostById: build.query<IPost, number>({
+      query: (id: number = 5) => ({
+        url: `/posts/${id}`
+      }),
+    }),
   }),
 });
 
-export const { useGetUserQuery } = postApi;
+export const { useGetPostsQuery , useGetPostByIdQuery} = postApi;
