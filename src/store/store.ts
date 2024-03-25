@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./reducers/counter-clice";
+import counterReducer from "./slices/counter-clice";
 
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { postApi } from "./api/post-api";
+import { postApi } from "./rtk-query/post-api";
 
 const rootReducer = combineReducers({
   counterReducer,
